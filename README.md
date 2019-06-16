@@ -20,6 +20,7 @@ github-trigger 设计到多个 yaml 文件，用于设置各种资源，而不�
 ##  执行命令
 
 ```
+kubectl apply -f egress.yaml
 kubectl apply -f clusterrole.yaml
 kubectl apply -f clusterrolebinding.yaml
 kubectl apply -f serviceaccount.yaml

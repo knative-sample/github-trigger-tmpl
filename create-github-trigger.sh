@@ -61,19 +61,18 @@ if [ -z "${save_path}" ]; then
 fi
 dn="$(dirname ${save_path})"
 name="$(basename ${save_path})"
-echo "save_path is empty"
 save_path="${dn}/${name}/"
 
 mkdir -p ${save_path}
 
 while read origin_file; do 
     file_name="$(basename ${origin_file})"
-    echo "file_name: ${file_name}"
     echo ${origin_file} | awk -v code_repo="${code_repo}" \
         -v module_name="${module_name}" \
         -v save_path="${save_path}" \
         -v file_name="${file_name}" \
-        '{print "sed \"s/{{.ModuleName}}/"module_name"/g\" "$1"| sed \"s?{{.CodeRepo}}?"code_repo"?g\" >"save_path""file_name}'
+        '{print "sed \"s/{{.ModuleName}}/"module_name"/g\" "$1"| sed \"s?{{.CodeRepo}}?"code_repo"?g\" >"save_path""file_name}'|bash
+    echo "create ${save_path}${file_name} success"
 done << EOF
 $(ls ${ROOTDIR}/*.yaml )
 EOF
